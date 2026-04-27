@@ -9,19 +9,19 @@ import java.util.Objects;
 @Builder
 public record AddressDto(
         @NotBlank(message = "House number is required")
-        @Size(min = 1, max = 20)
+        @Size(min = 1, max = 20, message = "House number should be between 1 to 20 characters")
         String houseNumber,
         @NotBlank(message = "Street is required")
-        @Size(min = 1, max = 20)
+        @Size(min = 1, max = 20, message = "Street should be between 1 to 20 characters")
         String street,
         @NotBlank(message = "City is required")
-        @Size(min = 2, max = 50)
+        @Size(min = 2, max = 50, message = "City should be between 1 to 50 characters")
         String city,
         @NotBlank(message = "State is required")
-        @Size(min = 2, max = 50)
+        @Size(min = 2, max = 50, message = "State number should be between 1 to 50 characters")
         String state,
         @NotBlank(message = "Zip code is required")
-        @Size(min = 3, max = 10)
+        @Size(min = 3, max = 10, message = "Zip code should be between 1 to 10 characters")
         String zip
 ) {
         @Override

@@ -1,0 +1,44 @@
+services:
+  postgres:
+    container_name: ms_postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres:/var/lib/postgresql
+    networks:
+      - ms_network
+    restart: unless-stopped
+
+  mongodb:
+    container_name: ms_mongodb
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo:/data
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
+    networks:
+      - ms_network
+    restart: unless-stopped
+
+  mail-dev:
+    container_name: ms_mail_dev
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    restart: unless-stopped
+
+networks:
+  ms_network:
+    driver: bridge
+
+volumes:
+  postgres:
+  mongo:

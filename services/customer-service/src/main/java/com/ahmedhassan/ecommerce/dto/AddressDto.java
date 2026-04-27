@@ -1,6 +1,7 @@
 package com.ahmedhassan.ecommerce.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
 import java.util.Objects;
@@ -8,14 +9,19 @@ import java.util.Objects;
 @Builder
 public record AddressDto(
         @NotBlank(message = "House number is required")
+        @Size(min = 1, max = 20)
         String houseNumber,
         @NotBlank(message = "Street is required")
+        @Size(min = 1, max = 20)
         String street,
         @NotBlank(message = "City is required")
+        @Size(min = 2, max = 50)
         String city,
         @NotBlank(message = "State is required")
+        @Size(min = 2, max = 50)
         String state,
         @NotBlank(message = "Zip code is required")
+        @Size(min = 3, max = 10)
         String zip
 ) {
         @Override

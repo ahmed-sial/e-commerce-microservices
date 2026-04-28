@@ -1,4 +1,4 @@
-package com.ahmedhassan.ecommerce.dto;
+package com.ahmedhassan.ecommerce.dto.product;
 
 import lombok.Builder;
 
@@ -6,11 +6,11 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Builder
-public record ProductResponseDto(
+public record ProductPurchaseResponseDto(
         UUID id,
         String name,
         String description,
         BigDecimal price,
-        Integer availableQuantity,
-        CategoryResponseDto category
+        Integer purchasedQuantity,
+        Long categoryId
 ) {}

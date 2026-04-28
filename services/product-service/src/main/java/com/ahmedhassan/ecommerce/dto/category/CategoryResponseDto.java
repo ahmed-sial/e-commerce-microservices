@@ -1,4 +1,4 @@
-package com.ahmedhassan.ecommerce.dto;
+package com.ahmedhassan.ecommerce.dto.category;
 
 import lombok.Builder;
 

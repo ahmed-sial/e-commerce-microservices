@@ -1,4 +1,4 @@
-package com.ahmedhassan.ecommerce.dto;
+package com.ahmedhassan.ecommerce.dto.category;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

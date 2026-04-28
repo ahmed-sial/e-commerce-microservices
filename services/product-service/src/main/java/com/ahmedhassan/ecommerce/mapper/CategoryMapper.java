@@ -1,6 +1,6 @@
 package com.ahmedhassan.ecommerce.mapper;
 
-import com.ahmedhassan.ecommerce.dto.CategoryResponseDto;
+import com.ahmedhassan.ecommerce.dto.category.CategoryResponseDto;
 import com.ahmedhassan.ecommerce.model.Category;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;

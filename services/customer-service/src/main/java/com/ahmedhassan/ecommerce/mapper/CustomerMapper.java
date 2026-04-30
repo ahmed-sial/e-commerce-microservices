@@ -13,7 +13,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomerMapper {
     public CustomerResponseDto toCustomerResponseDto(Customer customer) {
-        return CustomerResponseDto.builder().build();
+        return CustomerResponseDto
+                .builder()
+                .id(customer.getId())
+                .firstName(customer.getFirstName())
+                .lastName(customer.getLastName())
+                .email(customer.getEmail())
+                .address(customer.getAddress().toString())
+                .build();
     }
     public Customer toCustomer(@NonNull CustomerRequestDto dto) {
         return Customer

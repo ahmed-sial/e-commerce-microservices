@@ -1,6 +1,7 @@
 package com.ahmedhassan.ecommerce.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
@@ -24,6 +25,11 @@ public record AddressDto(
         @Size(min = 3, max = 10, message = "Zip code should be between 1 to 10 characters")
         String zip
 ) {
+        @Override
+        public String toString() {
+                return houseNumber + ", " + street + ", " + city + ", " + state + "/" + zip;
+        }
+
         @Override
         public boolean equals(Object o) {
                 if (this == o) return true;

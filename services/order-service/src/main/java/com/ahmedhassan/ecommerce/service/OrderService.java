@@ -1,7 +1,9 @@
 package com.ahmedhassan.ecommerce.service;
 
 import com.ahmedhassan.ecommerce.client.CustomerClient;
+import com.ahmedhassan.ecommerce.client.PaymentClient;
 import com.ahmedhassan.ecommerce.client.ProductClient;
+import com.ahmedhassan.ecommerce.client.dto.PaymentRequestDto;
 import com.ahmedhassan.ecommerce.config.KafkaOrderTopicConfig;
 import com.ahmedhassan.ecommerce.dto.PagedResponse;
 import com.ahmedhassan.ecommerce.dto.order.OrderRequestDto;
@@ -14,6 +16,7 @@ import com.ahmedhassan.ecommerce.exception.ProductPurchaseNotSuccessfulException
 import com.ahmedhassan.ecommerce.kafka.OrderConfirmationDto;
 import com.ahmedhassan.ecommerce.kafka.OrderProducer;
 import com.ahmedhassan.ecommerce.mapper.OrderMapper;
+import com.ahmedhassan.ecommerce.model.PaymentMethod;
 import com.ahmedhassan.ecommerce.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.common.Uuid;
@@ -34,6 +37,7 @@ public class OrderService {
     private final OrderMapper mapper;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
 
     public OrderResponseDto createOrder(OrderRequestDto dto) {
         var customer = customerClient.findCustomerById(dto.customerId())
@@ -58,6 +62,15 @@ public class OrderService {
                 .customer(customer)
                 .products(purchasedProducts)
                 .build();
+        var paymentRequest = PaymentRequestDto
+                .builder()
+                .amount(dto.totalAmount())
+                .paymentMethod(PaymentMethod.valueOf(dto.paymentMethod()))
+                .orderId(savedOrder.getId())
+                .orderReference(dto.reference())
+                .customer(customer)
+                .build();
+        paymentClient.requestOrderPayment(paymentRequest);
         orderProducer.sendOrderConfirmationMessage(msg);
         return mapper.toOrderResponseDto(savedOrder);
     }

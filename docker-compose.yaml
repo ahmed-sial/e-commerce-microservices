@@ -56,7 +56,6 @@ services:
     depends_on:
       - zookeeper
 
-
   mail-dev:
     container_name: ms_mail_dev
     image: maildev/maildev
@@ -64,6 +63,16 @@ services:
       - "1080:1080"
       - "1025:1025"
     restart: unless-stopped
+    networks:
+      - ms_network
+
+  zipkin:
+    container_name: zipkin
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - ms_network
 
 networks:
   ms_network:

@@ -11,3 +11,8 @@ spring:
 server:
   servlet:
     context-path: /api/v1
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
